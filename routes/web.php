@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LinkController;
 
@@ -20,5 +21,7 @@ Route::get('/', function () {
 
 Route::post('/links/shorten', [LinkController::class, 'create'])->name('shorten');
 Route::get('/links', [LinkController::class, 'index'])->name('shorten');
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
 
 Route::get('/{identifier}', [LinkController::class, 'redirect'])->name('redirect');

@@ -43,6 +43,9 @@ class LinkController extends Controller
 
         return redirect()->back()->with([
             'shortened' => $link->identifier,
+            'url' => $link->url,
+            'title' => $link->title,
+            'count' => strlen($link->url) - strlen($link->identifier),
             'success' => 'Link encurtado com sucesso!',
         ]);
     }
@@ -92,6 +95,7 @@ class LinkController extends Controller
         $link = Link::where('identifier', $identifier)->firstOrFail();
 
         $link->clicks++;
+        $link->save();
 
         return redirect($link->url);
     }

@@ -14,6 +14,7 @@ class Link extends Model
         'identifier',
         'title',
         'url',
+        'clicks',
         'user_id',
     ];
 
