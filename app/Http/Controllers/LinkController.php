@@ -36,10 +36,18 @@ class LinkController extends Controller
         @$doc->loadHTML($html);
         $title = $doc->getElementsByTagName('title')->item(0)->nodeValue;
 
-        $link = Link::firstOrCreate([
-            'title' => $title,
-            'url' => $request->url,
-        ]);
+        if (auth()->check()) {
+            $link = Link::firstOrCreate([
+                'title' => $title,
+                'url' => $request->url,
+                'user_id' => auth()->user()->id,
+            ]);
+        } else {
+            $link = Link::firstOrCreate([
+                'title' => $title,
+                'url' => $request->url,
+            ]);
+        }
 
         return redirect()->back()->with([
             'shortened' => $link->identifier,

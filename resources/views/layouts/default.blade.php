@@ -19,9 +19,19 @@
                         <a href="/" class="navbar-brand">Encurtador</a>
                         <div class="collapse navbar-collapse">
                             <ul class="navbar-nav ms-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/login">Login</a>
-                                </li>
+                                @if (!auth()->check())
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/login">Login</a>
+                                    </li>
+                                @endif
+                                @if (auth()->check())
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/logout">Logout</a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </nav>
