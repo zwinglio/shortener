@@ -7,7 +7,7 @@
             <div class="row justify-content-center mt-4">
                 <div class="col-xl-6 text-center">
                     <h1>Encurtador de URL</h1>
-                    <p class="small">v1.3</p>
+                    <p class="small">v1.3.2</p>
                 </div>
             </div>
 
