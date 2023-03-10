@@ -6,7 +6,12 @@ import { PurgeCSS } from 'purgecss';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js', 'resources/css/app.scss'],
+            input: [
+                'resources/css/app.css',
+                'resources/js/app.js',
+                'resources/css/app.scss',
+                'resources/css/home.css'
+            ],
             refresh: true,
         }),
         {
