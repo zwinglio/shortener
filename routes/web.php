@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Route::post('/links/shorten', [LinkController::class, 'create'])->name('shorten');
-Route::get('/links', [LinkController::class, 'index'])->name('shorten');
+Route::get('/links', [LinkController::class, 'index'])->name('links');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/auth', [AuthController::class, 'authenticate'])->name('authenticate');
@@ -29,6 +29,7 @@ Route::post('/auth', [AuthController::class, 'authenticate'])->name('authenticat
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+    Route::get('/create-file', [FileController::class, 'create'])->name('create-file');
 });
 
 Route::get('/{identifier}', [LinkController::class, 'redirect'])->name('redirect');
