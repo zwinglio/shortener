@@ -30,7 +30,12 @@ Route::post('/auth', [AuthController::class, 'authenticate'])->name('authenticat
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+
     Route::get('/create-file', [FileController::class, 'create'])->name('create-file');
+
+    Route::delete('/links/{link}', [LinkController::class, 'destroy'])->name('link.destroy');
+    Route::get('/links/{link}', [LinkController::class, 'edit'])->name('link.edit');
+    Route::put('/links/{link}', [LinkController::class, 'update'])->name('link.update');
 });
 
 Route::get('/{identifier}', [LinkController::class, 'redirect'])->name('redirect');

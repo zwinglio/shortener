@@ -28,6 +28,13 @@
             <div class="row justify-content-center mt-4">
                 <div class="col-xl-8">
                     <h3>Lista de links</h3>
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     <div class="p-3">
                         <table class="table table-striped table-hover table-sm">
                             <thead>
@@ -36,6 +43,7 @@
                                     <th>Link</th>
                                     <th>ID</th>
                                     <th>Clicks</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,6 +57,22 @@
                                             </a>
                                         </td>
                                         <td>{{ $link->clicks }}</td>
+                                        <td>
+                                            <form action="{{ route('link.destroy', $link->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <div class="btn-group">
+                                                    <a href="{{ route('link.edit', $link->id) }}"
+                                                        class="btn btn-sm btn-outline-secondary">
+                                                        ✏️
+                                                    </a>
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                        ❌
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -6,6 +6,7 @@ use App\Models\Link;
 use Illuminate\Support\Str;
 use Termwind\Components\Dd;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class LinkController extends Controller
 {
@@ -69,7 +70,7 @@ class LinkController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Links $links)
+    public function show(Link $link)
     {
         //
     }
@@ -77,25 +78,45 @@ class LinkController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Links $links)
+    public function edit(Link $link)
     {
-        //
+        return view('link-edit', compact('link'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Links $links)
+    public function update(Request $request, Link $link)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'identifier' => [
+                'required',
+                'max:10',
+                Rule::unique('links')->ignore($link->id),
+            ],
+        ], [
+            'title.required' => 'Por favor, insira um título!',
+            'title.max' => 'O título deve ter no máximo 255 caracteres!',
+            'identifier.required' => 'Por favor, insira um identificador!',
+            'identifier.max' => 'O identificador deve ter no máximo 10 caracteres!',
+            'identifier.unique' => 'O identificador já está em uso!',
+        ]);
+        
+        $link->title = $request->title;
+        $link->identifier = $request->identifier;
+        $link->save();
+
+        return redirect('/dashboard')->with('success', 'Link atualizado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Links $links)
+    public function destroy(Link $link)
     {
-        //
+        $link->delete();
+        return redirect()->back()->with('success', 'Link deletado com sucesso!');
     }
 
     public function redirect($identifier)
