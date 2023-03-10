@@ -9,15 +9,16 @@ class WebhookController extends Controller
     public function gitPull(Request $request)
     {
         $payload = json_decode($request->getContent(), true);
-        $branch = $payload['ref'];
-        $branch = str_replace('refs/heads/', '', $branch);
 
-        $secret = $payload['secret'];
-        if ($secret != 'qwe@1234') {
-            return response()->json(['error' => 'Invalid secret'], 401);
+        if (isset($payload['ref'])) {
+            $branch = $payload['ref'];
+        } else {
+            return response()->json(['error' => 'Invalid payload'], 401);
         }
 
-        if ($branch == 'master') {
+        $branch = str_replace('refs/heads/', '', $branch);
+
+        if ($branch == 'main') {
             $outputPull = shell_exec('git pull');
             $outputBuild = shell_exec('npm run build');
             $outputRsync = shell_exec('rsync -av --progress --exclude "index.php" public/ ../public_html/');
