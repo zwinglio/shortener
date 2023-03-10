@@ -19,6 +19,7 @@ class WebhookController extends Controller
         $branch = str_replace('refs/heads/', '', $branch);
 
         if ($branch == 'main') {
+            chdir('../laravel');
             $outputPull = shell_exec('git pull');
             $outputBuild = shell_exec('npm run build');
             $outputRsync = shell_exec('rsync -av --progress --exclude "index.php" public/ ../public_html/');
