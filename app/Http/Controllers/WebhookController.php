@@ -24,5 +24,7 @@ class WebhookController extends Controller
 
             return response()->json(['output' => [$outputPull, $outputBuild, $outputRsync]]);
         }
+
+        return response()->json(['error' => 'Invalid branch'], 401);
     }
 }
