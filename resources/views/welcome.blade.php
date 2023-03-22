@@ -76,17 +76,6 @@
         @endif
     </section>
 
-    <section id="footer">
-        <div class="container">
-            <div class="row justify-content-center mt-4">
-                <div class="col-xl-6 text-center">
-                    <p>Feito com ❤️ por <a href="https://zwinglio.com">Zwinglio</a></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
     <script>
         function copyToClipboard(text) {
             var dummy = document.createElement("textarea");
